@@ -14,6 +14,6 @@ public class CanSpell {
     }
     public static void main (String[] args) {
         System.out.println(canSpell("quijibo", "jib"));
-        System.out.println(canSpell("quijibo", "quiz"));
+        System.out.println(canSpell("quijibo", "quid"));
     }
 }
