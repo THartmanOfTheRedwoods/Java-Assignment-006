@@ -1,5 +1,7 @@
 import java.util.Scanner;
-public class CanSpell {
+
+public class Sandbox {
+
     public static boolean canSpell(String letters, String word) {
         // Converting strings to lowercase for easier comparison
         letters = letters.toLowerCase();
