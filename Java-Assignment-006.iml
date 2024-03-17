@@ -1,11 +1,49 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<module type="GENERAL_MODULE" version="4">
-  <component name="NewModuleRootManager" inherit-compiler-output="true">
-    <exclude-output />
-    <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
-    </content>
-    <orderEntry type="inheritedJdk" />
-    <orderEntry type="sourceFolder" forTests="false" />
-  </component>
-</module>
+import java.util.HashMap;
+import java.util.Map;
+
+public class CanSpell {
+
+    public static boolean canSpell(String tiles, String word) {
+        // Create histograms for tiles and word
+        Map<Character, Integer> tileHistogram = generateHistogram(tiles);
+        Map<Character, Integer> wordHistogram = generateHistogram(word);
+
+        // Check if each character in the word can be formed using the tiles
+        for (Map.Entry<Character, Integer> entry : wordHistogram.entrySet()) {
+            char letter = entry.getKey();
+            int count = entry.getValue();
+            if (!tileHistogram.containsKey(letter) || tileHistogram.get(letter) < count) {
+                return false; // Cannot form the word
+            }
+        }
+        return true; // All characters can be formed
+    }
+
+    private static Map<Character, Integer> generateHistogram(String s) {
+        // Creates a histogram of characters in a string.
+        Map<Character, Integer> hist = new HashMap<>();
+        for (char c : s.toCharArray()) {
+            hist.put(c, hist.getOrDefault(c, 0) + 1);
+        }
+        return hist;
+    }
+
+    public static void main(String[] args) {
+        // Test cases
+        String tiles = "abccddef";
+        String word = "face";
+        System.out.println(canSpell(tiles, word)); // Output: true
+
+        tiles = "abccddef";
+        word = "bead";
+        System.out.println(canSpell(tiles, word)); // Output: false
+
+        tiles = "aaaaabbb";
+        word = "aaaab";
+        System.out.println(canSpell(tiles, word)); // Output: true
+
+        tiles = "hello";
+        word = "world";
+        System.out.println(canSpell(tiles, word)); // Output: false
+    }
+}
